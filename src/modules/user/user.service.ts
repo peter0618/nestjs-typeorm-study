@@ -26,6 +26,7 @@ export class UserService {
     const userNew = await this.userRepository.findOne(user.id);
     userNew.firstName = user.firstName;
     userNew.lastName = user.lastName;
+    userNew.isActive = user.isActive;
     await this.userRepository.save(userNew);
   }
 
