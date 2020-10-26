@@ -15,7 +15,7 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => Profile, { cascade: true })
   @JoinColumn()
   profile: Profile;
 }

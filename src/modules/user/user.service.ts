@@ -14,9 +14,9 @@ export class UserService {
   ) {}
 
   async add(user: User): Promise<void> {
-    const profile = user.profile;
-    await this.profileRepository.save(profile); // 저장하면 DB에 profile row가 생성되고 생성된 id가 profile 객체의 id에 매핑됩니다.
-    await this.userRepository.save(user);
+    // const profile = user.profile;
+    // await this.profileRepository.save(profile); // 저장하면 DB에 profile row가 생성되고 생성된 id가 profile 객체의 id에 매핑됩니다.
+    await this.userRepository.save(user); // cascade: true 옵션을 주면 profile 을 별도로 저장하지 않아도 자동으로 저장 처리 해줍니다.
   }
 
   async findAll(): Promise<User[]> {
@@ -41,7 +41,6 @@ export class UserService {
   }
 
   async modify(newUser: User): Promise<void> {
-    // const user = await this.userRepository.findOne(user.id);
     const user = await this.findOne(newUser.id.toString());
     user.firstName = newUser.firstName;
     user.lastName = newUser.lastName;
