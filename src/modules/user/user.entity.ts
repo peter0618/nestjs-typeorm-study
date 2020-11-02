@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Profile } from '../profile/profile.entity';
-import { Post } from '../post/post.entity';
+import { Posts } from '../post/post.entity';
 
 @Entity()
 export class User {
@@ -20,6 +20,6 @@ export class User {
   @JoinColumn()
   profile: Profile;
 
-  @OneToMany(() => Post, post => post.user)
-  posts: Post[];
+  @OneToMany(() => Posts, post => post.user)
+  posts: Posts[];
 }
