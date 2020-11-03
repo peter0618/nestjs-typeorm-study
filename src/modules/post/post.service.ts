@@ -16,4 +16,22 @@ export class PostService {
     posts.user = user;
     await this.postsRepository.save(posts);
   }
+
+  async findAll() {
+    // return await this.postsRepository.find();
+    // return await this.postsRepository.find({relations: ["user"]});
+    return await this.postsRepository
+      .createQueryBuilder('posts')
+      .leftJoinAndSelect('posts.user', 'user')
+      .orderBy('posts.id', 'DESC')
+      .getMany();
+  }
+
+  async findOne(id: any) {
+    return await this.postsRepository
+      .createQueryBuilder('posts')
+      .leftJoinAndSelect('posts.user', 'user')
+      .where('posts.id = :id', { id })
+      .getOne();
+  }
 }
