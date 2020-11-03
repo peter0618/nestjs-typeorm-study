@@ -34,4 +34,12 @@ export class PostService {
       .where('posts.id = :id', { id })
       .getOne();
   }
+
+  async modify(newPosts: Posts) {
+    const posts = await this.findOne(newPosts.id);
+    posts.contents = newPosts.contents;
+    posts.title = newPosts.title;
+
+    await this.postsRepository.save(posts);
+  }
 }

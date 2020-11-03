@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post, Put } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { PostService } from './post.service';
 import { PostReqDto } from './post.req.dto';
@@ -27,5 +27,12 @@ export class PostController {
   async findOne(@Param('id') id): Promise<Posts> {
     this.logger.debug(`findOne(id : ${id})`);
     return await this.postService.findOne(id);
+  }
+
+  @Put('/:id')
+  async modify(@Param('id') id, @Body() posts: Posts): Promise<void> {
+    posts.id = id;
+    this.logger.debug(`modify(posts : ${JSON.stringify(posts)})`);
+    await this.postService.modify(posts);
   }
 }
